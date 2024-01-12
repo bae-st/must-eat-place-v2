@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class MustEatPlaceApplication
 
 fun main(args: Array<String>) {
-    runApplication<MustEatPlaceApplication>(*args)
+  runApplication<MustEatPlaceApplication>(*args)
 }
