@@ -1,12 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
 plugins {
   id("org.springframework.boot") version "3.2.1"
   id("io.spring.dependency-management") version "1.1.4"
-  id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+
   kotlin("jvm") version "1.9.21"
   kotlin("plugin.spring") version "1.9.21"
   kotlin("plugin.jpa") version "1.9.21"
+  kotlin("kapt") version "${KotlinVersion.CURRENT}"
+  idea
 }
 
 group = "com.go"
@@ -21,16 +24,29 @@ repositories {
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
+  implementation("org.slf4j:slf4j-api:2.0.7")
+  implementation("org.springframework.boot:spring-boot-starter-validation")
 
-  runtimeOnly("com.h2database:h2")
-  runtimeOnly("com.mysql:mysql-connector-j")
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-  developmentOnly("org.springframework.boot:spring-boot-devtools")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+  implementation("com.h2database:h2")
+  implementation("org.springframework.boot:spring-boot-devtools")
+
+  implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+  kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+  kapt("jakarta.annotation:jakarta.annotation-api")
+  kapt("jakarta.persistence:jakarta.persistence-api")
+
+  implementation("io.github.resilience4j:resilience4j-spring-boot2:2.2.0")
+  implementation("io.github.resilience4j:resilience4j-all:2.2.0")
+
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("io.mockk:mockk:1.13.8")
 }
 
 tasks.withType<KotlinCompile> {
