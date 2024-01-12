@@ -9,7 +9,7 @@ plugins {
   kotlin("jvm") version "1.9.21"
   kotlin("plugin.spring") version "1.9.21"
   kotlin("plugin.jpa") version "1.9.21"
-  kotlin("kapt") version "${KotlinVersion.CURRENT}"
+  kotlin("kapt") version "1.9.21"
   idea
 }
 
@@ -28,14 +28,11 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("org.slf4j:slf4j-api:2.0.7")
-  implementation("org.springframework.boot:spring-boot-starter-validation")
-
   implementation("org.springframework.boot:spring-boot-starter-actuator")
 
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
-  implementation("com.h2database:h2")
+  implementation("org.springframework.boot:spring-boot-starter-validation")
+  implementation("mysql:mysql-connector-java:8.0.31")
   implementation("org.springframework.boot:spring-boot-devtools")
 
   implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")

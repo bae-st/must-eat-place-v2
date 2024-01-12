@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+login-info:
+  naver-client-id: ${NAVER_CLIENT_ID}
+  naver-client-secret: ${NAVER_CLIENT_SECRET}
+  kakao-secret: ${KAKAO_REST_API_KEY}
+#
