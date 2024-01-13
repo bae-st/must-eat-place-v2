@@ -42,6 +42,15 @@ dependencies {
 
   implementation("io.github.resilience4j:resilience4j-spring-boot2:2.2.0")
   implementation("io.github.resilience4j:resilience4j-all:2.2.0")
+  implementation("org.springframework.boot:spring-boot-starter-aop")
+
+  configurations {
+    all {
+      exclude(group = "org.springframework.boot", module = "sprig-boot-starter-logging")
+    }
+  }
+
+  implementation("org.springframework.boot:spring-boot-starter-log4j2")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("io.mockk:mockk:1.13.8")
