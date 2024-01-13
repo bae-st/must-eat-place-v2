@@ -33,7 +33,7 @@ class SearchWorker(
     }
   }
 
-  @CircuitBreaker(name = "searchNaver", fallbackMethod = "fallbackSearch")
+  @CircuitBreaker(name = "searchNaver", fallbackMethod = "searchKakao")
   fun searchNaver(request: SearchRequest): String? {
       return naverSearchClient.search(request)
   }
