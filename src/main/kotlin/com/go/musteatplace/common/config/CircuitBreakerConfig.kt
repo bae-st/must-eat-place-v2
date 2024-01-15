@@ -9,6 +9,6 @@ class CircuitBreakerConfig {
 
   @Bean
   fun config(): CircuitBreaker {
-    return CircuitBreaker.ofDefaults("searchNaver")
+    return CircuitBreaker.ofDefaults("searchActual")
   }
 }
