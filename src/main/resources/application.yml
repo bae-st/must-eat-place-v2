@@ -6,20 +6,21 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: "*" # 이 부분 보안 이슈 없는지 체크
+    health:
+      show-details: always
 
 resilience4j:
   circuitbreaker:
     configs:
       default:
         registerHealthIndicator: true
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10 # 요청 개수 및 시간으로 지정 가능
+        minimumNumberOfCalls: 5 # 실패율과 느린 응답 비율 계산할 최소 요청 수
+        permittedNumberOfCallsInHalfOpenState: 3 # 회로가 half-open-open 상태일 때 받아 들일 요청 수
         automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 5s
-        failureRateThreshold: 50
-        eventConsumerBufferSize: 10
+        waitDurationInOpenState: 5s # open에서 half-open 상태로 넘어가며 기다리는 시간
+        failureRateThreshold: 50 # 해당 비율 넘을 경우 회로 차단
     instances:
       customCircuitBreaker:
         baseConfig: default

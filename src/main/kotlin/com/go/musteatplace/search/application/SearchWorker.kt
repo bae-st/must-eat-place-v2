@@ -19,29 +19,15 @@ class SearchWorker(
 ) {
   val logger: Logger = LoggerFactory.getLogger(SearchWorker::class.java)
 
+  @CircuitBreaker(name = "searchActual", fallbackMethod = "searchKakao")
   fun searchActual(request: SearchRequest): String? {
-    return searchNaver(request = request)
-  }
-
-  fun parseSearchResults(res: String): List<SearchResultsDto>? {
-    try {
-      val naverSearchResponse = objectMapper.readValue<NaverSearchResponse>(res)
-      return naverSearchResponse.items.map { NaverSearchResultsAdapter(it) }
-    } catch (e: JsonProcessingException) {
-      logger.error("parseSearchResults: ${e.message}")
-      throw ServiceException("Error parsing search results", e)
-    }
-  }
-
-  @CircuitBreaker(name = "searchNaver", fallbackMethod = "searchKakao")
-  fun searchNaver(request: SearchRequest): String? {
-      return naverSearchClient.search(request)
+    return naverSearchClient.search(request)
   }
 
   @CircuitBreaker(name = "searchKakao", fallbackMethod = "fallbackSearch")
-  fun searchKakao(request: SearchRequest): String? {
-      logger.warn("Circuit opened")
-      return kakaoSearchClient.search(request)
+  fun searchKakao(request: SearchRequest, e: Throwable): String? {
+    logger.warn("Circuit opened")
+    return kakaoSearchClient.search(request)
   }
 
   // TODO: select data from search_history table
@@ -49,5 +35,22 @@ class SearchWorker(
   fun fallbackSearch(request: SearchRequest, e: Throwable): String? {
     logger.warn("fallbackSearch called")
     return "An error occurred: ${e.message}"
+  }
+
+  fun parseSearchResults(res: String): List<SearchResultsDto>? {
+    try {
+      if (res.contains("\"lastBuildDate\"")) {
+        val naverSearchResponse = objectMapper.readValue<NaverSearchResponse>(res)
+        return naverSearchResponse.items.map { NaverSearchResultsAdapter(it) }
+      } else if (res.contains("\"documents\"")) {
+        val kakaoSearchResponse = objectMapper.readValue<KakaoSearchResponse>(res)
+        return kakaoSearchResponse.documents.map { KakaoSearchResultsAdapter(it) }
+      } else {
+        return null
+      }
+    } catch (e: JsonProcessingException) {
+      logger.error("parseSearchResults: ${e.message}")
+      throw ServiceException("Error parsing search results", e)
+    }
   }
 }
