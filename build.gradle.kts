@@ -46,7 +46,8 @@ dependencies {
 
   configurations {
     all {
-      exclude(group = "org.springframework.boot", module = "sprig-boot-starter-logging")
+      exclude(group = "ch.qos.logback", module = "logback-classic")
+      exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
     }
   }
 
