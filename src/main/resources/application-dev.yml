@@ -14,8 +14,3 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
-
-login-info:
-  naver-client-id: ${NAVER_CLIENT_ID}
-  naver-clinet-secret: ${NAVER_CLIENT_SECRET}
-  kakao-secret: ${KAKAO_REST_API_KEY}
