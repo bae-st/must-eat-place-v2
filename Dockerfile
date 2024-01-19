@@ -8,4 +8,4 @@ RUN echo JAR_FILE
 ARG PROFILE
 ENV PROFILE_ENV=${PROFILE}
 
-ENTRYPOINT ["java", "-Xms1024M", "-Xmx1024M", "-jar", "-Dspring.profiles.active=${PROFILE_ENV}", "api.jar"]
+ENTRYPOINT ["java", "-Xms1024M", "-Xmx1024M", "-jar", "api.jar"]

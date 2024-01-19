@@ -1,14 +1,12 @@
 spring:
   profiles:
-    active: dev
+    active: prod
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*" # 이 부분 보안 이슈 없는지 체크
-    health:
-      show-details: always
+        include: health
 
 resilience4j:
   circuitbreaker:
@@ -24,3 +22,8 @@ resilience4j:
     instances:
       customCircuitBreaker:
         baseConfig: default
+
+login-info:
+  naver-client-id: ${NAVER_CLIENT_ID}
+  naver-client-secret: ${NAVER_CLIENT_SECRET}
+  kakao-secret: ${KAKAO_REST_API_KEY}
