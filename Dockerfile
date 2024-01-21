@@ -5,7 +5,4 @@ COPY ${JAR_FILE} api.jar
 
 RUN echo JAR_FILE
 
-ARG PROFILE
-ENV PROFILE_ENV=${PROFILE}
-
-ENTRYPOINT ["java", "-Xms1024M", "-Xmx1024M", "-jar", "api.jar"]
+ENTRYPOINT ["java", "-Xms1024M", "-Xmx1024M", "-jar", "-Dspring.profiles.active=prod", "api.jar"]
