@@ -6,11 +6,12 @@ spring:
     name: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_PROD_URL}
+    username: ${MYSQL_PROD_USERNAME}
+    password: ${MYSQL_PROD_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
+
